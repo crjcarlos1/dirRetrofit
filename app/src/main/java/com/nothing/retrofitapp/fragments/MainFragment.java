@@ -14,12 +14,14 @@ import android.widget.Toast;
 import com.nothing.retrofitapp.R;
 import com.nothing.retrofitapp.fragments.login.interfaces.LoginResultCore;
 import com.nothing.retrofitapp.fragments.login.request.LoginRequestClass;
+import com.nothing.retrofitapp.fragments.put.interfaces.PutResultListener;
+import com.nothing.retrofitapp.fragments.put.request.PutRequestClass;
 
-public class MainFragment extends Fragment implements View.OnClickListener, LoginResultCore {
+public class MainFragment extends Fragment implements View.OnClickListener, LoginResultCore, PutResultListener {
     public static final String TAG = MainFragment.class.getSimpleName();
 
     private EditText edtEmail, edtPassword;
-    private Button btnLogin;
+    private Button btnLogin, btnPutRequest;
 
     @Nullable
     @Override
@@ -33,7 +35,9 @@ public class MainFragment extends Fragment implements View.OnClickListener, Logi
         edtPassword = (EditText) view.findViewById(R.id.edtPassword);
         edtEmail = (EditText) view.findViewById(R.id.edtEmail);
         btnLogin = (Button) view.findViewById(R.id.btnLogin);
+        btnPutRequest = (Button) view.findViewById(R.id.btnPutRequest);
         btnLogin.setOnClickListener(this);
+        btnPutRequest.setOnClickListener(this);
     }
 
     @Override
@@ -42,17 +46,29 @@ public class MainFragment extends Fragment implements View.OnClickListener, Logi
             case R.id.btnLogin:
                 doLogin();
                 break;
+            case R.id.btnPutRequest:
+                putRequest();
+                break;
         }
+    }
+
+    private void putRequest() {
+        PutRequestClass putRequestClass = new PutRequestClass(this, getContext());
+        putRequestClass.startPutRequest("morpheus", "zion resident");
     }
 
     private void doLogin() {
         LoginRequestClass loginRequestClass = new LoginRequestClass(this, getContext());
-        loginRequestClass.validateData(edtEmail.getText().toString(), edtPassword.getText().toString()
-        );
+        loginRequestClass.validateData(edtEmail.getText().toString(), edtPassword.getText().toString());
     }
 
     @Override
     public void setMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setMessagePUT(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
