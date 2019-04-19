@@ -21,7 +21,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Logi
     public static final String TAG = MainFragment.class.getSimpleName();
 
     private EditText edtEmail, edtPassword;
-    private Button btnLogin, btnPutRequest;
+    private Button btnLogin, btnPutRequest,btnUploadImage;
 
     @Nullable
     @Override
@@ -36,8 +36,10 @@ public class MainFragment extends Fragment implements View.OnClickListener, Logi
         edtEmail = (EditText) view.findViewById(R.id.edtEmail);
         btnLogin = (Button) view.findViewById(R.id.btnLogin);
         btnPutRequest = (Button) view.findViewById(R.id.btnPutRequest);
+        btnUploadImage = (Button) view.findViewById(R.id.btnUploadImage);
         btnLogin.setOnClickListener(this);
         btnPutRequest.setOnClickListener(this);
+        btnUploadImage.setOnClickListener(this);
     }
 
     @Override
@@ -49,7 +51,13 @@ public class MainFragment extends Fragment implements View.OnClickListener, Logi
             case R.id.btnPutRequest:
                 putRequest();
                 break;
+            case R.id.btnUploadImage:
+                uploadImage();
+                break;
         }
+    }
+
+    private void uploadImage() {
     }
 
     private void putRequest() {
